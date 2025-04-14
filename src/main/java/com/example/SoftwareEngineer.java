@@ -1,6 +1,7 @@
 package com.example;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 import java.util.List;
@@ -8,14 +9,15 @@ import java.util.Objects;
 @Entity
 public class SoftwareEngineer {
     @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private int id;
     private  String name;
-    private List<String> techStack;
+    private String techStack;
 
     public SoftwareEngineer() {
     }
 
-    public SoftwareEngineer(int id, String name, List<String> techStack) {
+    public SoftwareEngineer(int id, String name, String techStack) {
         this.id = id;
         this.name = name;
         this.techStack = techStack;
@@ -29,7 +31,7 @@ public class SoftwareEngineer {
         return name;
     }
 
-    public List<String> getTechStack() {
+    public String getTechStack() {
         return techStack;
     }
 
@@ -41,7 +43,7 @@ public class SoftwareEngineer {
         this.name = name;
     }
 
-    public void setTechStack(List<String> techStack) {
+    public void setTechStack(String techStack) {
         this.techStack = techStack;
     }
 

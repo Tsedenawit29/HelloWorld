@@ -1,18 +1,37 @@
 package com.example;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/software-engineers")
 public class SoftwareEngineerController {
+
+        private final SoftwareEngineerService softwareEngineerService;
+
+        public SoftwareEngineerController(SoftwareEngineerService softwareEngineerService) {
+        this.softwareEngineerService = softwareEngineerService;
+    }
+
     @GetMapping
     public List<SoftwareEngineer> getEngineers(){
-        return List.of(
-                new SoftwareEngineer(1,"Selam",List.of("Java","Spring Boot", "node js")),
-                new SoftwareEngineer(2,"Mahlet",List.of("js", "node", "tailwind")));
+        return softwareEngineerService.getAllSoftwareEngineers();
+    }
+    @GetMapping(value = "{id}")
+    public SoftwareEngineer getEngineersById( @PathVariable Integer id){
+        return softwareEngineerService.getSoftwareEngineersById(id);
+    }
+    @PostMapping
+    public void addNewSoftwareEngineer(@RequestBody SoftwareEngineer softwareEngineer){
+            softwareEngineerService.insertSoftwareEngineer(softwareEngineer);;
+    }
+    @DeleteMapping(value = "{id}")
+    public void deleteSoftwareEngineerById(@PathVariable Integer id){
+        softwareEngineerService.deleteSoftwareEngineerById(id);;
+    }
+    @PutMapping(value = "{id}")
+    public void updateSoftwareEngineerById(@RequestBody SoftwareEngineer softwareEngineer, @PathVariable Integer id){
+        softwareEngineerService.updateSoftwareEngineerById(softwareEngineer, id);;
     }
 }
